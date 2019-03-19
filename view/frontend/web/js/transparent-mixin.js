@@ -17,16 +17,23 @@
 
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
-var config = {
-    config: {
-        mixins: {
-            'Magento_Ui/js/view/messages': {
-                'MSP_ReCaptcha/js/ui-messages-mixin': true
-            },
-            'Magento_Payment/js/transparent': {
-                'MSP_ReCaptcha/js/transparent-mixin': true
+define(['jquery', 'jquery/ui'], function ($) {
+    return function (originalTransparent) {
+        return $.widget('mage.transparent', originalTransparent, {
+            _orderSave: function () {
+                var original = this._superApply.bind(this),
+                    args = arguments;
+
+                $(this.options.paymentFormSelector).on('captcha:endExecute', function () {
+                    original(args);
+                });
+
+                $(this.options.paymentFormSelector).trigger('captcha:startExecute');
+
+                return  {
+                    fail: function () {}
+                }
             }
-        }
-    }
-};
+        })
+    };
+});

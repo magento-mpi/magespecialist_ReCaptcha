@@ -39,6 +39,7 @@
                 <enabled_forgot>1</enabled_forgot>
                 <enabled_contact>1</enabled_contact>
                 <enabled_create>1</enabled_create>
+                <enabled_paypal>0</enabled_paypal>
             </frontend>
         </msp_securitysuite_recaptcha>
     </default>

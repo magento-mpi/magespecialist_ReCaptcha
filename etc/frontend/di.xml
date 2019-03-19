@@ -175,4 +175,23 @@
         <plugin sortOrder="1" name="mSPReCaptchaAuthenticationPopup"
                 type="MSP\ReCaptcha\Plugin\Block\Account\AuthenticationPopupPlugin"/>
     </type>
+
+    <!-- PayPal PayflowPro Form -->
+    <virtualType name="MSP\ReCaptcha\Model\Provider\IsCheckRequired\Frontend\PayPal"
+                 type="MSP\ReCaptcha\Model\IsCheckRequired">
+        <arguments>
+            <argument name="enableConfigFlag"
+                      xsi:type="string">msp_securitysuite_recaptcha/frontend/enabled_paypal</argument>
+            <argument name="area" xsi:type="string">frontend</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MSP\ReCaptcha\Observer\Frontend\PayPalObserver"
+                 type="MSP\ReCaptcha\Observer\ReCaptchaObserver">
+        <arguments>
+            <argument name="isCheckRequired"
+                      xsi:type="object">MSP\ReCaptcha\Model\Provider\IsCheckRequired\Frontend\PayPal</argument>
+            <argument name="failureProvider"
+                      xsi:type="object">MSP\ReCaptcha\Model\Provider\Failure\PaymentTransparentResponseFailure</argument>
+        </arguments>
+    </virtualType>
 </config>

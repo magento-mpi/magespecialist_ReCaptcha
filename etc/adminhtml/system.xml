@@ -160,6 +160,14 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
+                <field id="enabled_paypal" translate="label" type="select" sortOrder="230" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Use in PayPal PayflowPro payment form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>

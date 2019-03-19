@@ -52,6 +52,10 @@ class Onepage implements LayoutProcessorInterface
             ['shippingAddress']['children']['customer-email']['children']
             ['msp_recaptcha']['settings'] = $this->layoutSettings->getCaptchaSettings();
 
+        $jsLayout['components']['checkout']['children']['steps']['children']['billing-step']['children']
+            ['payment']['children']['payments-list']['children']['additional-payment-fields']['children']
+            ['msp_recaptcha']['settings'] = $this->layoutSettings->getCaptchaSettings();
+
         $jsLayout['components']['checkout']['children']['authentication']['children']
             ['msp_recaptcha']['settings'] = $this->layoutSettings->getCaptchaSettings();
 

@@ -29,7 +29,8 @@ define(
         return Component.extend({
 
             defaults: {
-                template: 'MSP_ReCaptcha/reCaptcha'
+                template: 'MSP_ReCaptcha/reCaptcha',
+                isAjax: false
             },
             _isApiRegistered: undefined,
 
@@ -103,6 +104,15 @@ define(
             },
 
             /**
+             * Async Recaptcha callback
+             * @param {String} token
+             */
+            asyncReCaptchaCallback: function (token) {
+                this.tokenField.value = token;
+                this.$parentForm.trigger('captcha:endExecute');
+            },
+
+            /**
              * Initialize reCaptcha after first rendering
              */
             initCaptcha: function () {
@@ -141,7 +151,11 @@ define(
                     'size': this.settings.size,
                     'badge': this.badge ? this.badge : this.settings.badge,
                     'callback': function (token) { // jscs:ignore jsDoc
-                        me.reCaptchaCallback(token);
+                        if (me.isAjax) {
+                            me.asyncReCaptchaCallback(token);
+                        } else {
+                            me.reCaptchaCallback(token);
+                        }
                         me.validateReCaptcha(true);
                     },
                     'expired-callback': function () {
@@ -149,13 +163,24 @@ define(
                     }
                 });
 
-                if (this.settings.size === 'invisible') {
+                if (this.settings.size === 'invisible' || this.isAjax) {
                     $parentForm.submit(function (event) {
                         if (!me.tokenField.value) {
                             // eslint-disable-next-line no-undef
                             grecaptcha.execute(widgetId);
                             event.preventDefault(event);
                             event.stopImmediatePropagation();
+                        }
+                    });
+
+                    $parentForm.on('captcha:startExecute', function (event) {
+                        if (!me.tokenField.value && me.settings.size === 'invisible') {
+                            // eslint-disable-next-line no-undef
+                            grecaptcha.execute(widgetId);
+                            event.preventDefault(event);
+                            event.stopImmediatePropagation();
+                        } else {
+                            me.$parentForm.trigger('captcha:endExecute');
                         }
                     });
 
@@ -176,7 +201,6 @@ define(
                 registry.tokenFields.push(this.tokenField);
 
             },
-
 
             validateReCaptcha: function(state){
                 if (this.settings.size !== 'invisible') {
