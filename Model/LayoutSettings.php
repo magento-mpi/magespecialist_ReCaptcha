@@ -55,6 +55,7 @@ class LayoutSettings
                 'create' => $this->config->isEnabledFrontendCreate(),
                 'forgot' => $this->config->isEnabledFrontendForgot(),
                 'contact' => $this->config->isEnabledFrontendContact(),
+                'paypal' => $this->config->isEnabledFrontendPaypal(),
             ]
         ];
     }

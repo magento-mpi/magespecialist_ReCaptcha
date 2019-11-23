@@ -21,7 +21,6 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-
     <body>
         <referenceBlock name="checkout.root">
             <arguments>
@@ -31,6 +30,29 @@
                             <item name="children" xsi:type="array">
                                 <item name="steps" xsi:type="array">
                                     <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="payments-list" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="additional-payment-fields" xsi:type="array">
+                                                                    <item name="children" xsi:type="array">
+                                                                        <item name="msp_recaptcha" xsi:type="array">
+                                                                            <item name="component" xsi:type="string">MSP_ReCaptcha/js/asyncReCaptcha</item>
+                                                                            <item name="displayArea" xsi:type="string">additional-payment-fields</item>
+                                                                            <item name="configSource" xsi:type="string">checkoutConfig</item>
+                                                                            <item name="reCaptchaId" xsi:type="string">msp-recaptcha-checkout-paypal-form</item>
+                                                                            <item name="zone" xsi:type="string">paypal</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
                                         <item name="shipping-step" xsi:type="array">
                                             <item name="children" xsi:type="array">
                                                 <item name="shippingAddress" xsi:type="array">
@@ -52,7 +74,6 @@
                                         </item>
                                     </item>
                                 </item>
-
                                 <item name="authentication" xsi:type="array">
                                     <item name="children" xsi:type="array">
                                         <item name="msp_recaptcha" xsi:type="array">
